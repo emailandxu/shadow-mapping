@@ -12,10 +12,16 @@ find_package(GLEW REQUIRED)
 find_package(GLM REQUIRED)
 include_directories(shadows GLM_INCLUDE_DIR)
 
-find_package(ASSIMP REQUIRED)
+find_package(assimp REQUIRED)
 include_directories(shadows ASSIMP_INCLUDE_DIRS)
 
 pkg_search_module(GLFW REQUIRED glfw3)
 include_directories(${GLFW_INCLUDE_DIRS})
 
 target_link_libraries(shadows OpenGL::OpenGL ${GLFW_LIBRARIES} GLEW::GLEW ${ASSIMP_LIBRARIES})
+
+# Copy all shaders
+file(COPY ${CMAKE_SOURCE_DIR}/shaders/ DESTINATION ${CMAKE_BINARY_DIR}/shaders)
+
+# Copy all models
+file(COPY ${CMAKE_SOURCE_DIR}/models/ DESTINATION ${CMAKE_BINARY_DIR}/models)
